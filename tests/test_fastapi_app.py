@@ -1,15 +1,12 @@
 from unittest.mock import MagicMock
-from datetime import datetime, timezone
 
 import pytest
-from httpx import AsyncClient, ASGITransport
+from httpx import ASGITransport, AsyncClient
 
 from whiskerscope.adapters.fastapi_app import app
 from whiskerscope.adapters.sqlite_store import SQLiteStore
-from whiskerscope.adapters.yolo_detector import YOLOv8Detector
 from whiskerscope.application.event_counter import EventCounter
 from whiskerscope.config import WhiskerscopeConfig
-from whiskerscope.domain.models import BoundingBox, Detection
 
 
 @pytest.fixture(autouse=True)

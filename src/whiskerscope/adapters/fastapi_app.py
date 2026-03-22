@@ -14,9 +14,9 @@ from fastapi import FastAPI, Request, Response, UploadFile, WebSocket, WebSocket
 from fastapi.responses import JSONResponse
 
 from whiskerscope.adapters.api_models import (
-    DetectResponse,
-    DetectionItem,
     BoundingBoxResponse,
+    DetectionItem,
+    DetectResponse,
     ErrorResponse,
     HealthResponse,
     StatsResponse,
@@ -78,7 +78,9 @@ async def global_exception_handler(request: Request, exc: Exception):
     logger.exception("Unhandled error: %s", exc)
     return JSONResponse(
         status_code=500,
-        content=ErrorResponse(code="INTERNAL_ERROR", message="An unexpected error occurred", request_id=req_id).model_dump(),
+        content=ErrorResponse(
+            code="INTERNAL_ERROR", message="An unexpected error occurred", request_id=req_id
+        ).model_dump(),
     )
 
 
@@ -100,14 +102,18 @@ async def detect(file: UploadFile):
     if file.content_type and file.content_type not in ALLOWED_TYPES:
         return JSONResponse(
             status_code=422,
-            content=ErrorResponse(code="INVALID_FILE_TYPE", message=f"Expected image, got {file.content_type}", request_id=req_id).model_dump(),
+            content=ErrorResponse(
+                code="INVALID_FILE_TYPE", message=f"Expected image, got {file.content_type}", request_id=req_id
+            ).model_dump(),
         )
 
     contents = await file.read()
     if len(contents) > MAX_FILE_SIZE:
         return JSONResponse(
             status_code=422,
-            content=ErrorResponse(code="FILE_TOO_LARGE", message="File exceeds 10 MB limit", request_id=req_id).model_dump(),
+            content=ErrorResponse(
+                code="FILE_TOO_LARGE", message="File exceeds 10 MB limit", request_id=req_id
+            ).model_dump(),
         )
 
     nparr = np.frombuffer(contents, np.uint8)
@@ -115,7 +121,9 @@ async def detect(file: UploadFile):
     if img is None:
         return JSONResponse(
             status_code=422,
-            content=ErrorResponse(code="INVALID_IMAGE", message="Could not decode image", request_id=req_id).model_dump(),
+            content=ErrorResponse(
+                code="INVALID_IMAGE", message="Could not decode image", request_id=req_id
+            ).model_dump(),
         )
 
     h, w = img.shape[:2]

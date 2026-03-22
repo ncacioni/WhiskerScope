@@ -36,6 +36,8 @@ class SQLiteStore(EventStorePort):
 
     def get_daily_summary(self) -> dict:
         row = self.conn.execute(
-            "SELECT COUNT(*) as events, COALESCE(SUM(cat_count), 0) as total_cats, COALESCE(MAX(max_confidence), 0) as best_confidence FROM detections WHERE date(timestamp) = date('now')"
+            "SELECT COUNT(*) as events, COALESCE(SUM(cat_count), 0) as total_cats,"
+            " COALESCE(MAX(max_confidence), 0) as best_confidence"
+            " FROM detections WHERE date(timestamp) = date('now')"
         ).fetchone()
         return dict(row) if row else {"events": 0, "total_cats": 0, "best_confidence": 0}

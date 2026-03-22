@@ -11,13 +11,13 @@ import cv2
 import pandas as pd
 import streamlit as st
 
-from whiskerscope.config import WhiskerscopeConfig
 from whiskerscope.composition import (
     create_clip_recorder,
     create_detection_service,
     create_event_counter,
     init_app,
 )
+from whiskerscope.config import WhiskerscopeConfig
 
 # --- Page config & dark theme ---
 st.set_page_config(page_title="Whiskerscope", page_icon="🐱", layout="wide")

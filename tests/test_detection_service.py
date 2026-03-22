@@ -1,6 +1,5 @@
-from whiskerscope.application.detection_service import DetectionService
-from whiskerscope.domain.models import Frame, Detection
 from tests.conftest import FakeCamera, FakeDetector
+from whiskerscope.application.detection_service import DetectionService
 
 
 def test_process_frame_with_detection(sample_frame, sample_detection):

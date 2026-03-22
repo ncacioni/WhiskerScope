@@ -1,4 +1,3 @@
-import os
 
 from whiskerscope.config import WhiskerscopeConfig
 

@@ -29,7 +29,9 @@ class DetectResponse(BaseModel):
             "examples": [
                 {
                     "cat_count": 1,
-                    "detections": [{"label": "cat", "confidence": 0.92, "bbox": {"x1": 120, "y1": 80, "x2": 340, "y2": 290}}],
+                    "detections": [
+                        {"label": "cat", "confidence": 0.92, "bbox": {"x1": 120, "y1": 80, "x2": 340, "y2": 290}}
+                    ],
                     "request_id": "req_abc123",
                     "processing_time_ms": 45.2,
                 }
