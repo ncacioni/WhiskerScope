@@ -1,0 +1,21 @@
+# Archon & Claude Code — local dev tooling
+archon/
+.archon/
+.claude/
+CLAUDE.md
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.venv/
+
+# Project artifacts
+clips/
+*.pt
+
+# IDE
+.vscode/
+.idea/
