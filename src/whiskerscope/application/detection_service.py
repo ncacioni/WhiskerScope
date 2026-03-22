@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import logging
+
 from whiskerscope.domain.models import CatEvent
 from whiskerscope.domain.ports import CameraPort, DetectorPort
+
+logger = logging.getLogger(__name__)
 
 
 class DetectionService:
@@ -13,5 +17,11 @@ class DetectionService:
         frame = self.camera.read_frame()
         if frame is None:
             return None
-        detections = self.detector.detect_cats(frame)
+        try:
+            detections = self.detector.detect_cats(frame)
+        except Exception:
+            logger.exception("Detection failed for frame")
+            detections = []
+        if detections:
+            logger.info("Detected %d cat(s)", len(detections))
         return CatEvent(detections=detections, frame=frame)

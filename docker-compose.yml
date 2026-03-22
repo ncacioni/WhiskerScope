@@ -1,0 +1,32 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      - clips:/home/appuser/app/clips
+      - db:/home/appuser/app/data
+    environment:
+      WS_DB_PATH: /home/appuser/app/data/whiskerscope.db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  streamlit:
+    build: .
+    command: ["python", "-m", "streamlit", "run", "src/whiskerscope/adapters/streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    ports:
+      - "8501:8501"
+    env_file: .env
+    volumes:
+      - clips:/home/appuser/app/clips
+      - db:/home/appuser/app/data
+    environment:
+      WS_DB_PATH: /home/appuser/app/data/whiskerscope.db
+
+volumes:
+  clips:
+  db:

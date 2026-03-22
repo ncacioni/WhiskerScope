@@ -30,3 +30,14 @@ class RecorderPort(ABC):
 
     @abstractmethod
     def is_recording(self) -> bool: ...
+
+
+class EventStorePort(ABC):
+    @abstractmethod
+    def save_detection(self, timestamp: str, cat_count: int, max_confidence: float, session_id: str) -> None: ...
+
+    @abstractmethod
+    def get_session_history(self, session_id: str, limit: int = 20) -> list[dict]: ...
+
+    @abstractmethod
+    def get_daily_summary(self) -> dict: ...

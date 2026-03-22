@@ -14,6 +14,7 @@ dependencies = [
     "fastapi>=0.104",
     "uvicorn>=0.24",
     "python-multipart>=0.0.6",
+    "pandas>=2.0",
 ]
 
 [project.optional-dependencies]
@@ -21,6 +22,12 @@ dev = [
     "pytest>=7.4",
     "pytest-cov>=4.1",
     "httpx>=0.25",
+    "anyio[trio]>=4.0",
+    "pytest-anyio>=0.0.0",
+    "ruff>=0.4",
+]
+onnx = [
+    "onnxruntime>=1.16",
 ]
 
 [tool.setuptools.packages.find]
@@ -28,3 +35,11 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "--cov=whiskerscope --cov-report=term-missing"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]

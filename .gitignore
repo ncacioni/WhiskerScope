@@ -15,7 +15,16 @@ build/
 # Project artifacts
 clips/
 *.pt
+*.onnx
+*.db
+.env
 
 # IDE
 .vscode/
 .idea/
+
+# Test/CI
+.pytest_cache/
+htmlcov/
+coverage.xml
+.coverage
